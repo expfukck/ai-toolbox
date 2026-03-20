@@ -24,6 +24,7 @@ import type {
   CodexProvider,
   CodexProviderFormValues,
   CodexProviderInput,
+  CodexSettings,
   CodexSettingsConfig,
   ImportConflictInfo,
   ImportConflictAction,
@@ -51,7 +52,7 @@ import CodexCommonConfigModal from '../components/CodexCommonConfigModal';
 import ImportConflictDialog from '../components/ImportConflictDialog';
 import ImportFromAllApiHubModal from '../components/ImportFromAllApiHubModal';
 import AllApiHubIcon from '@/components/common/AllApiHubIcon';
-import JsonPreviewModal from '@/components/common/JsonPreviewModal';
+import CodexConfigPreviewModal from '@/components/common/CodexConfigPreviewModal';
 import { GlobalPromptSettings } from '@/features/coding/shared/prompt';
 import type { OpenCodeAllApiHubProvider } from '@/services/opencodeApi';
 import SectionSidebarLayout from '@/components/layout/SectionSidebarLayout/SectionSidebarLayout';
@@ -76,7 +77,7 @@ const CodexPage: React.FC = () => {
   const [conflictInfo, setConflictInfo] = React.useState<ImportConflictInfo | null>(null);
   const [pendingFormValues, setPendingFormValues] = React.useState<CodexProviderFormValues | null>(null);
   const [previewModalOpen, setPreviewModalOpen] = React.useState(false);
-  const [previewData, setPreviewDataLocal] = React.useState<unknown>(null);
+  const [previewData, setPreviewDataLocal] = React.useState<CodexSettings | null>(null);
   const [providerListCollapsed, setProviderListCollapsed] = React.useState(false);
   const [allApiHubImportModalOpen, setAllApiHubImportModalOpen] = React.useState(false);
   const [allApiHubAvailable, setAllApiHubAvailable] = React.useState(false);
@@ -785,7 +786,7 @@ const CodexPage: React.FC = () => {
         )}
 
         {/* Preview Modal */}
-        <JsonPreviewModal
+        <CodexConfigPreviewModal
           open={previewModalOpen}
           onClose={() => setPreviewModalOpen(false)}
           title={t('codex.preview.currentConfigTitle')}
